@@ -36,11 +36,8 @@ def extract_jobs_process(html):
         if company.find("a", "companyOverviewLink") is not None:
             company_link = MAIN_URL + company.find("a", "companyOverviewLink")['href']
     return {
-        "job_id": job_id,
-        "title": title,
-        "job_link": f"{URL}&vjk={job_id}",
-        "company": company_name,
-        "company_link": company_link,
+        "title": title + " for " + company_name,
+        "link": f"{URL}&vjk={job_id}",
         "location": location
     }
 
@@ -48,7 +45,7 @@ def extract_jobs_process(html):
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
-        print(f"Scrapping Indeed Page {page}")
+        print(f"Scrapping Indeed Page {page + 1}")
         result = r.get(f"{URL}&start={LIMIT * page}")
         soup = BeautifulSoup(result.content, "html.parser")
         results = soup.find_all("div", {"class": "job_seen_beacon"})

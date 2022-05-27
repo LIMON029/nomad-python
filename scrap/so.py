@@ -22,7 +22,11 @@ def extract_jobs_process(html):
     company_title = company.text
     company_link = company['href']
     location = html.find("div", {"class": "gsx"}).find("div", {"class": "fc-black-500"}).text
-    return {"title": company_title, "link": company_link, "location": location.strip().replace(';', ',')}
+    return {
+        "title": company_title,
+        "link": company_link,
+        "location": location.strip().replace(';', ',')
+    }
 
 
 def extract_jobs(last_page):
